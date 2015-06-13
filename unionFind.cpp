@@ -1,43 +1,53 @@
 /*
-* Union Find structure to detect cycles 
-* in a graph
+* Union Find with hashtables!
+* 
 *
 * Fernando Lovera
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
-class Union_Find{
-	int * set_id, *set_size, size;
+using namespace std;
+class Disjoint_set{
+	unordered_map <char, char> PARENT;
+	unordered_map <char, int> RANK; //record the depth of trees
 	public:
-		Union_Find(int n){
-			set_id   = new int[n];
-			set_size = new int[n];
-			for(int i = 0; i < n; i++){
-				set_id[i]   = i; //there is one element in each set
-				set_size[i] = 1; //at the beginning there is one element
+		Disjoint_set(){
+			char universe[] = {'a', 'b', 'c', 'd', 'e'};
+			for(char x: universe){
+				PARENT[x] = x; //5 disjoint sets each set contain one item.
+				RANK[x]   = 0;
 			}
+			PARENT['d'] = 'b';//b and d in the same set
+			RANK['b']   = 1;
 		}
-		//find the id of the subset where the element is in
-		int find_set_id(int element){
-			while(element != set_id[element]){
-				element = set_id[element];
-				return element;
-			}
+		char Find(char item){
+			if(PARENT[item] == item)
+				return item;
+			else
+				return Find(PARENT[item]);
 		}
-		int merge(int element1, int element2){
-			int a = find_set_id(element1);
-			int b = find_set_id(element2);
-			if(a < b){
-				set_id[b] = a;
-			}else{
-				set_id[a] = b;
+		/*
+		* use the root of the deeper tree to
+		* be the new root
+		*/
+		void Union(char set_1, char set_2){
+			if(RANK[set_1] > RANK[set_2])
+				PARENT[set_2] = set_1;
+			else if(RANK[set_2] > RANK[set_1])
+				PARENT[set_1] = set_2;
+			else{
+				PARENT[set_1] = set_2;
+				RANK[set_2]++;
 			}
-			return a < b? a:b;
 		}
 };
-int main()
-{
-	return 0;
+int main(){
+	Disjoint_se ds;
+	ds.Find('c'); //return c
+	ds.union('c', 'a'); //a and c are in the same set
+	ds.Find('c'); // return a
+	ds.Union('a', 'b'); //a, c, b, d are in the same set
 }
    	
