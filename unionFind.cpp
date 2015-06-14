@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <unordered_map>
 
 using namespace std;
 class Disjoint_set{
@@ -44,10 +45,10 @@ class Disjoint_set{
 		}
 };
 int main(){
-	Disjoint_se ds;
-	ds.Find('c'); //return c
-	ds.union('c', 'a'); //a and c are in the same set
-	ds.Find('c'); // return a
+	Disjoint_set ds;
+	cout << ds.Find('c'); //return c
+	ds.Union('c', 'a'); //a and c are in the same set
+	cout << ds.Find('c'); // return a
 	ds.Union('a', 'b'); //a, c, b, d are in the same set
 }
    	
