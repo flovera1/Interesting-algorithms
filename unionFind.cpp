@@ -8,8 +8,44 @@
 #include <stdlib.h>
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
+class Node;
+class Disjoint_set;
+class Edge{
+	public:
+		Node *source;
+		Node *destiny;
+		Edge(Node *nodeSource, Node *nodeDest){
+			source  = nodeSource;
+			destiny = nodeDest;
+		}
+};
+class Node{
+	private:
+		char name;
+		vector<Edge> adjNodeList;
+	public:
+		Node(char nodename){
+			name = nodename;
+		}
+};
+class Graph{
+	public:
+		vector<Edge> set;
+		Disjoint_set *rep;
+		Graph(vector<Edge> s){
+			set = s;
+		}
+		int size(){
+			int counter = 0;
+			for(int i = 0; i < this->set.size(); i++){
+				counter ++;
+			}
+			return counter;
+		}
+};
 class Disjoint_set{
 	unordered_map <char, char> PARENT;
 	unordered_map <char, int> RANK; //record the depth of trees
@@ -44,6 +80,7 @@ class Disjoint_set{
 			}
 		}
 };
+
 int main(){
 	Disjoint_set ds;
 	cout << ds.Find('c'); //return c
