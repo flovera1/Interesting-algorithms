@@ -1,3 +1,10 @@
+/*
+* huffman's alg
+* creates a tree with leaves as characters and builds the best binary prefix-free encoding
+* for a given set of character frequencies
+* Fernando Lovera
+* 
+*/
 import java.util.*;
 abstract class HuffmanTree implements Comparable<HuffmanTree> {
 	public final int frequency; //the frequency of the tree
@@ -72,7 +79,7 @@ public class Huffman{
         }
     }
     public static void main(String[] args) {
-        String test = "this is an example for huffman encoding";
+        String test = "huffman encoding prefix free and trees everywhere";
 
         // we will assume that all our characters will have
         // code less than 256, for simplicity
